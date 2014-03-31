@@ -8,6 +8,7 @@ import java.util.Map;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 	List<Map<String, String>> treasuresList = new ArrayList<Map<String,String>>();
@@ -42,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
 		
 		setupList();
 		ListView lv = (ListView) findViewById(R.id.tab1);
-		SimpleAdapter simpleAdpt = new SimpleAdapter(this, treasuresList, android.R.layout.simple_list_item_1, new String[] {"planet"}, new int[] {android.R.id.text1});
+		SimpleAdapter simpleAdpt = new SimpleAdapter(this, treasuresList, android.R.layout.simple_list_item_1, new String[] {"treasure"}, new int[] {android.R.id.text1});
 		lv.setAdapter(simpleAdpt);
 
         TabHost host = (TabHost)findViewById(android.R.id.tabhost);
@@ -61,7 +63,10 @@ public class MainActivity extends ActionBarActivity {
         
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	public void onItemClick(AdapterView<?> parentAdapter, View view, int position, long id){
-        		
+        		String product = ((TextView) view).getText().toString();
+        		Intent i = new Intent(getApplicationContext(), SingleListItem.class);
+                i.putExtra("product", product);
+                startActivity(i);
         	}
 		});
 
